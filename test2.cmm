@@ -1,0 +1,27 @@
+class Foo  {
+	int fact(int n) {
+		return ;
+	}
+	int fib(int x) { 
+		return 1;
+	}
+};
+
+class Main extends Foo {
+	Main() {   
+		int x
+		int i;
+		
+		x++;
+		for (i=0; i=10 ;i++) { 		x++; }
+		
+		for (;;) { x=1; }
+		
+		x = fact(5); 
+	} 
+	int fact(int n)  {
+		if (n==0) 
+			return 1;
+		else return n * fact(n-1);
+	
+};

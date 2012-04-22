@@ -1,0 +1,46 @@
+<project name="parser" default="build">
+
+<target name="build" depends="clean,compile">
+			
+</target>
+
+	<target name="compile" depends="JFlex,CUP"> 
+        <javac srcdir="." destdir="." debug="on" verbose="no"/>  		
+  </target>
+
+  <target name="JFlex"> 
+  	<JFlex file="src/lexer.flex"/> 
+  	<move file="src/Lexer.java" todir="parser/" />
+  </target>
+	
+	<target name="CUP">
+		<CUP srcfile="src/parser.cup" destdir="."/>
+	</target>
+
+  <target name="clean">
+    <delete file="parser/Scanner.java"/>
+    <delete file="parser/Scanner.java~"/>
+  	<delete file="parser/sym.java"/>
+	<delete file="parser/parser.java"/>
+  	<delete file="parser/Lexer.java"/>
+    <delete>      
+      <fileset dir="." includes="**/*~"/>
+      <fileset dir="." includes="**/*.class"/>
+    </delete>
+  </target>
+	
+	<target name="test.cmm">
+		<echo message="${java.class.path}" />
+		<java classname="parser.Driver" classpath=".;${java.class.path}">
+			<arg file="test.cmm"/>
+		</java>
+	</target>
+
+	<target name="test2.cmm">
+		<echo message="${java.class.path}" />
+		<java classname="parser.Driver" classpath=".;${java.class.path}">
+			<arg file="test2.cmm"/>
+		</java>
+	</target>
+
+</project>

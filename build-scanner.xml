@@ -1,0 +1,32 @@
+<project name="scanner" default="build">
+
+
+<target name="build" depends="compile">
+			
+</target>
+
+<target name="compile" depends="JFlex"> 
+        <javac srcdir="." destdir="." debug="on" verbose="no"/>  		
+ </target>
+
+	  <target name="JFlex"> 
+	  	<JFlex file="src/lexer.flex"/> 
+	  	<move file="src/Lexer.java" todir="parser/" />
+	  </target>
+		
+ <target name="clean">
+   <delete>      
+   <fileset dir="." includes="**/*~"/>
+   <fileset dir="." includes="**/*.class"/>
+   <fileset dir="lexer" includes="Lexer.java" />
+   </delete>
+  </target>
+	
+<target name="test.cmm">
+	<java classname="lexer.Driver" classpath=".">
+		<arg file="test.cmm"/>
+
+	</java>
+</target>
+
+</project>
