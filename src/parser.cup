@@ -1,0 +1,67 @@
+// JavaCUP example 
+
+package parser;
+
+parser code 
+{:
+	boolean parsing_failed = false;
+	String source_filename;
+
+	public SrcLoc sLoc(java_cup.runtime.Symbol token)
+	{
+		return new SrcLoc(token.left, token.right, source_filename);
+	}
+   
+   public parser(Lexer mylexer, String fname) 
+   {
+    super(mylexer);
+   	source_filename = fname;
+   }
+   
+   public void syntax_error(java_cup.runtime.Symbol cur_token)
+   {
+   	   parsing_failed = true;
+   	   System.err.println("Syntax error " + sLoc(cur_token).toString() + " Got: " + cur_token.toString());
+   }
+   
+   public boolean hasFailed() { return parsing_failed;}
+:}
+
+/* Terminals (tokens returned by the scanner). */
+terminal           SEMI, PLUS, MINUS, TIMES, DIVIDE, MOD,DOT,DOTDOT,COMMA;
+terminal           SMALLER,GREATER,SMEQ,GTEQ,EQL,NEQ,ASSIGN,AND,OR,NOT;
+terminal           UMINUS, LPAREN, RPAREN, LBRACKET,RBRACKET,PBRACKET,LBRACE,RBRACE;
+terminal           TINT, TBOOL,TVOID,WHILE,FOR,IF,SELF,ELSE,CLASS,EXTENDS,NEW,RETURN;
+terminal Integer   NUMBER;
+terminal String    ID;
+
+/* Non terminals */
+
+	/********* FILL IN ********/
+non terminal program, tokenlist, token;
+
+/* Precedences */
+
+	/********* FILL IN ********/
+
+/* The grammar */
+
+	/********* FILL IN ********/
+	
+	
+	/* the following is provided only as an example... you will want to change all of it! */
+start with program ;
+
+program ::= tokenlist {: System.out.println("tokenlist"); System.out.println("program"); :}
+		;
+tokenlist ::= token {: System.out.println("token"); :}
+		| token {: System.out.println("token"); :} tokenlist {: /* nothing here yet */ :}
+		;
+token ::= SEMI {: System.out.println("SEMI token"); :}
+		| PLUS | MINUS | TIMES | DIVIDE | MOD | DOT | DOTDOT | COMMA | 
+		SMALLER | GREATER | SMEQ | GTEQ | EQL | NEQ | ASSIGN | AND | OR | NOT | 
+		UMINUS | LPAREN | RPAREN | LBRACKET | RBRACKET | PBRACKET | LBRACE | RBRACE | 
+		TINT | TBOOL | TVOID | WHILE | FOR | IF | SELF | ELSE | CLASS | EXTENDS | NEW | RETURN | 
+		NUMBER:n {: System.out.println("NUMBER:" + n); :} 
+		| ID:id {: System.out.println("ID:" + id); :}
+		;
